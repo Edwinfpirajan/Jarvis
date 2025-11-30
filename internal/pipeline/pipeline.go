@@ -10,6 +10,7 @@ import (
 
 	"github.com/jarvisstreamer/jarvis/internal/brain"
 	"github.com/jarvisstreamer/jarvis/internal/config"
+	"github.com/jarvisstreamer/jarvis/internal/llm"
 	"github.com/jarvisstreamer/jarvis/internal/stt"
 	"github.com/jarvisstreamer/jarvis/pkg/logger"
 	"github.com/jarvisstreamer/jarvis/pkg/utils"
@@ -182,6 +183,12 @@ func (p *Pipeline) FeedAudio(audio []byte) {
 func (p *Pipeline) ProcessText(ctx context.Context, text string) (string, error) {
 	p.setState(StateProcessing)
 	defer p.setState(StateIdle)
+
+	// Check if Jarvis name is mentioned
+	if !llm.IsJarvisActivated(text) {
+		p.log.Debug().Str("text", text).Msg("Ignoring input - Jarvis name not mentioned")
+		return "", nil
+	}
 
 	if p.onTranscript != nil {
 		p.onTranscript(text)
@@ -416,6 +423,12 @@ func (p *Pipeline) processRecordedAudio(ctx context.Context) {
 	}
 
 	p.log.Info().Str("text", text).Msg("Transcribed")
+
+	// Check if Jarvis name is mentioned
+	if !llm.IsJarvisActivated(text) {
+		p.log.Debug().Str("text", text).Msg("Ignoring transcription - Jarvis name not mentioned")
+		return
+	}
 
 	if p.onTranscript != nil {
 		p.onTranscript(text)

@@ -1,6 +1,38 @@
 package llm
 
-import "strings"
+import (
+	"regexp"
+	"strings"
+)
+
+// IsJarvisActivated checks if the input mentions Jarvis to activate it
+// Looks for variations like "jarvis", "jarvis," "jarvy", "@jarvis", etc.
+func IsJarvisActivated(input string) bool {
+	if input == "" {
+		return false
+	}
+
+	input = strings.ToLower(strings.TrimSpace(input))
+
+	// Pattern matches: jarvis (with or without punctuation, at start/middle/end)
+	// Also matches variations and mentions with @
+	patterns := []string{
+		`\bjarvis\b`,           // word boundary match
+		`^jarvis[\s,.:!?]*`,    // start of sentence
+		`[\s,]jarvis[\s,.:!?]*`, // middle or end with punctuation
+		`@jarvis`,              // mention style
+		`oye jarvis`,           // Spanish variation
+		`hey jarvis`,           // English variation
+	}
+
+	for _, pattern := range patterns {
+		if matched, _ := regexp.MatchString(pattern, input); matched {
+			return true
+		}
+	}
+
+	return false
+}
 
 // SystemPrompt is the main system prompt for Jarvis
 const SystemPrompt = `Eres Jarvis, un asistente de voz inteligente y amigable para streamers. Tu personalidad es como la de un compañero de transmisión experto, con sentido del humor, empático y muy útil. Hablas como una persona real, no como un robot.
