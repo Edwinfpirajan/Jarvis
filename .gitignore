@@ -1,12 +1,17 @@
-# Binaries
+# Binaries (except compiled Jarvis with PortAudio)
 jarvis
-jarvis.exe
 jarvis-linux
 jarvis-macos
 *.exe
-*.dll
 *.so
 *.dylib
+
+# Keep compiled Jarvis executable with PortAudio support
+!jarvis.exe
+
+# DLL files (except PortAudio runtime dependency)
+*.dll
+!libportaudio.dll
 
 # Test binary, built with `go test -c`
 *.test
@@ -29,8 +34,10 @@ go.work
 .DS_Store
 Thumbs.db
 
-# Config with secrets
+# Config with secrets (keep example, ignore personal config)
 config/jarvis.config.yaml
+.env
+.env.local
 
 # Data directory
 data/
@@ -59,8 +66,11 @@ bin/piper*
 *.ogg
 *.flac
 
-# Keep example files
+# Keep important files and examples
+!jarvis.exe
+!libportaudio.dll
 !config/jarvis.config.example.yaml
+!.env.example
 !assets/.gitkeep
 !bin/.gitkeep
 

@@ -10,7 +10,11 @@
       "Bash(/c/msys64/msys2_shell.cmd -defterm -no-start -use-full-path -c \"CGO_ENABLED=1 CC=gcc go build -tags portaudio -o jarvis.exe ./cmd/jarvis/main.go\")",
       "Bash(bash -c \"export CGO_ENABLED=1 CC=gcc && /c/Program\\ Files/Go/bin/go build -tags portaudio -o jarvis.exe ./cmd/jarvis/main.go\")",
       "Bash(bash -c:*)",
-      "Bash(tee:*)"
+      "Bash(tee:*)",
+      "Bash(git rm:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []
