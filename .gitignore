@@ -1,0 +1,69 @@
+# Binaries
+jarvis
+jarvis.exe
+jarvis-linux
+jarvis-macos
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+coverage.html
+
+# Go workspace file
+go.work
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Config with secrets
+config/jarvis.config.yaml
+
+# Data directory
+data/
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Downloaded models (large files)
+assets/models/whisper/*.bin
+assets/voices/piper/*.onnx
+assets/voices/piper/*.json
+
+# Binaries for external tools
+bin/whisper*
+bin/piper*
+
+# Audio recordings
+*.wav
+*.mp3
+*.ogg
+*.flac
+
+# Keep example files
+!config/jarvis.config.example.yaml
+!assets/.gitkeep
+!bin/.gitkeep
+
+# Build artifacts
+dist/
+release/
